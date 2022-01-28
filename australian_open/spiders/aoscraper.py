@@ -6,25 +6,31 @@ from scrapy.loader import ItemLoader
 class AoscraperSpider(scrapy.Spider):
     name = 'aoscraper'
     # allowed_domains = ['tennis.com/tournaments/sr-tournament-2565-australian-open/']
+    page_start = 'https://www.tennis.com/tournaments/sr-tournament-2565-australian-open/library/sr-tournament-2567/{}'
+    year_start = 2022
+    tournament_code = page_start.split('/')[4].split('-')[2]
     start_urls = [
-            'https://www.tennis.com/tournaments/sr-tournament-2565-australian-open/library/sr-tournament-2567/2022/',
-            'https://www.tennis.com/tournaments/sr-tournament-2565-australian-open/library/sr-tournament-2567/2021/',
-            'https://www.tennis.com/tournaments/sr-tournament-2565-australian-open/library/sr-tournament-2567/2020/'
+            page_start.format(year_start)
             ]
 
     def parse(self, response):
         game_details_list = response.xpath(xp.game_details_list_xpath)
-        # year_list = [2022, 2021, 2020]
-        # for y in year_list:
         for game in game_details_list:
             l = ItemLoader(item=AustralianOpenItem(), selector=game)
             l.add_xpath('tournament_phase', xp.tournament_phase_xpath)
-            l.add_value('calendar_year', '2022')
+            l.add_value('calendar_year', self.year_start)
+            l.add_value('tournament', self.tournament_code)
 
             # Access the detail page to scrape game information
             game_href= game.xpath(xp.game_href_xpath).get()
             yield response.follow(url=game_href, meta={'item' : l.load_item()},
                     callback=self.parse_game, dont_filter=True)
+
+        # Iteration over the years
+        if self.year_start > 2021:
+            self.year_start -= 1
+            yield response.follow(url=self.page_start.format(self.year_start),
+                    callback=self.parse, dont_filter=True)
 
     # Scrape the stats from the detail page
     def parse_game(self, response):

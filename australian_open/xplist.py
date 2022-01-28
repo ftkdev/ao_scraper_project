@@ -1,15 +1,17 @@
 # TOURNAMENT PAGE
+# Ex. https://www.tennis.com/tournaments/sr-tournament-2565-australian-open/library/sr-tournament-2567/2022
 game_details_list_xpath = "//div[@class='tc-order-of-play__inner-card-wrapper']"
 tournament_phase_xpath = ".//div[@class='tc-match__info']/span/text()"
 
 # GAME PAGE
-game_href_xpath = ".//div[@class='tc-match__cta ']//a/@href"
+#Ex. https://www.tennis.com/tournaments/sr-tournament-2565-australian-open/sr-match-6764552/
+game_href_xpath = ".//a[contains(@class, 'fa-button button--match-details')]/@href"
 # Player1
 player1_name_xpath = ".//div[@class='tc-match-details__match-card-player'][1]//div[@class='tc-player__name']//a/text()"
 player1_surname_xpath = ".//div[@class='tc-match-details__match-card-player'][1]//div[@class='tc-player__name--surname']//a/text()"
 player1_country_xpath = ".//div[@class='tc-match-details__match-card-player'][1]//div[@class='tc-player__country']/text()"
 player1_seed_xpath = ".//div[@class='tc-match-details__match-card-player'][1]//div[@class='tc-player-seeding']/text()"
-player1_total_sets_xpath = ".//div[@class='tc-match-details__match-card-player'][1]//div[@class='match-card-score__stats--set -total']/text()"
+player1_total_sets_xpath = "//div[@class='tc-match-details__match-card-score__stats'][1]//div[contains(@class, 'match-card-score__stats--set -total')]/text()"
 p1_total_points_won_xpath = ".//*[text()='Total Points Won']/preceding::div[1]/text()"
 p1_total_games_won_xpath = ".//*[text()='Total Games Won']/preceding::div[1]/text()"
 p1_max_points_row_xpath = ".//*[text()='Max Points in a row']/preceding::div[1]/text()"
@@ -28,7 +30,7 @@ player2_name_xpath = ".//div[@class='tc-match-details__match-card-player'][2]//d
 player2_surname_xpath = ".//div[@class='tc-match-details__match-card-player'][2]//div[@class='tc-player__name--surname']//a/text()"
 player2_country_xpath = ".//div[@class='tc-match-details__match-card-player'][2]//div[@class='tc-player__country']/text()"
 player2_seed_xpath = ".//div[@class='tc-match-details__match-card-player'][2]//div[@class='tc-player-seeding']/text()"
-player2_total_sets_xpath = ".//div[@class='tc-match-details__match-card-player'][2]//div[@class='match-card-score__stats--set -total']/text()"
+player2_total_sets_xpath = "//div[@class='tc-match-details__match-card-score__stats'][2]//div[contains(@class, 'match-card-score__stats--set -total')]/text()"
 p2_total_points_won_xpath = ".//*[text()='Total Points Won']/following::div[1]/text()"
 p2_total_games_won_xpath = ".//*[text()='Total Games Won']/following::div[1]/text()"
 p2_max_points_row_xpath = ".//*[text()='Max Points in a row']/following::div[1]/text()"

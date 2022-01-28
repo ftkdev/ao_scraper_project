@@ -2,10 +2,8 @@ import scrapy
 from scrapy.item import Field
 from scrapy.loader.processors import MapCompose
 
-def general_cleaner(value):
-    value.replace('Seeded:','')
-    value.replace('&nbsp','')
-    return value.strip()
+def seed_cleaner(value):
+    return value.replace('&nbsp','').replace('Seeded:', '')
 
 class AustralianOpenItem(scrapy.Item):
     tournament = Field()
@@ -14,7 +12,7 @@ class AustralianOpenItem(scrapy.Item):
     player1_name = Field()
     player1_surname = Field()
     player1_country = Field()
-    player1_seed = Field(input_processor=MapCompose(general_cleaner))
+    player1_seed = Field(input_processor=MapCompose(seed_cleaner))
     player1_total_sets = Field()
     player1_1st_set = Field()
     player1_2nd_set = Field()
@@ -36,7 +34,7 @@ class AustralianOpenItem(scrapy.Item):
     player2_name = Field()
     player2_surname = Field()
     player2_country = Field()
-    player2_seed = Field(input_processor=MapCompose(general_cleaner))
+    player2_seed = Field(input_processor=MapCompose(seed_cleaner))
     player2_total_sets = Field()
     player2_1st_set = Field()
     player2_2nd_set = Field()
