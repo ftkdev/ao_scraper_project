@@ -2,15 +2,17 @@ import scrapy
 from scrapy.item import Field
 from scrapy.loader.processors import MapCompose
 
+def name_cleaner(value):
+    return value.replace('\n','').strip()
 def seed_cleaner(value):
-    return value.replace('&nbsp','').replace('Seeded:', '')
+    return value.replace('&nbsp','').replace('Seeded:', '').strip()
 
 class AustralianOpenItem(scrapy.Item):
     tournament = Field()
     tournament_phase = scrapy.Field()
     calendar_year = scrapy.Field()
-    player1_name = Field()
-    player1_surname = Field()
+    player1_name = Field(input_processor=MapCompose(name_cleaner))
+    player1_surname = Field(input_processor=MapCompose(name_cleaner))
     player1_country = Field()
     player1_seed = Field(input_processor=MapCompose(seed_cleaner))
     player1_total_sets = Field()

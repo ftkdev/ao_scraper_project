@@ -27,7 +27,7 @@ class AoscraperSpider(scrapy.Spider):
                     callback=self.parse_game, dont_filter=True)
 
         # Iteration over the years
-        if self.year_start > 2021:
+        if self.year_start > 2015:
             self.year_start -= 1
             yield response.follow(url=self.page_start.format(self.year_start),
                     callback=self.parse, dont_filter=True)
