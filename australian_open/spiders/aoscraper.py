@@ -6,8 +6,11 @@ from scrapy.loader import ItemLoader
 class AoscraperSpider(scrapy.Spider):
     name = 'aoscraper'
     # allowed_domains = ['tennis.com/tournaments/sr-tournament-2565-australian-open/']
-    page_start = 'https://www.tennis.com/tournaments/sr-tournament-2565-australian-open/library/sr-tournament-2567/{}'
-    year_start = 2022
+    # page_start = 'https://www.tennis.com/tournaments/sr-tournament-2565-australian-open/library/sr-tournament-2567/{}'
+    # page_start = 'https://www.tennis.com/tournaments/sr-tournament-2589-us-open/library/sr-tournament-2591/{}'
+    page_start = 'https://www.tennis.com/tournaments/sr-tournament-2577-french-open/library/sr-tournament-2579/{}'
+    # page_start = 'https://www.tennis.com/tournaments/sr-tournament-2553-wimbledon/library/sr-tournament-2555/{}'
+    year_start = 2021
     tournament_code = page_start.split('/')[4].split('-')[2]
     start_urls = [
             page_start.format(year_start)
